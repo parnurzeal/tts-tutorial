@@ -1,0 +1,32 @@
+name: festival_sinhala
+description: Build sinhala voice
+inputParameters:
+- name: INPUT_VOICE
+  defaultValue: gs://a-test-data-flow/smoke-test/sinhala-built-voice-small.tar.gz
+  localCopy:
+    disk: datadisk
+    path: built_voice.tar.gz
+- name: INPUT_TEXT
+  defaultValue: hello
+outputParameters:
+- name: OUTPUT_WAV
+  defaultValue: gs://a-test-data-flow/smoke-test/sinhala-hello.wav
+  localCopy:
+    disk: datadisk
+    path: result.wav
+resources:
+  minimumCpuCores: 16
+  minimumRamGb: 60
+  zones:
+  - us-central1-a
+  - us-central1-b
+  - us-central1-c
+  - us-central1-f
+  disks:
+  - name: datadisk
+    type: PERSISTENT_HDD
+    sizeGb: 100
+    mountPoint: /mnt/data
+docker:
+  imageName: parnurzeal/language-resources:ver1
+  cmd: "/language-resources-entrypoint.sh run_voice ${INPUT_VOICE} si \"${INPUT_TEXT}\" ${OUTPUT_WAV}"
