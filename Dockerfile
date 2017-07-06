@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -y \
       python-dev \
       python-setuptools \
       unzip \
+      vim \
       wavpack \
       wget \
       zip \
@@ -34,7 +35,7 @@ ENV THRAX thrax-1.2.2
 WORKDIR /usr/local/src
 RUN git clone https://github.com/google/protobuf.git
 WORKDIR /usr/local/src/protobuf
-RUN git reset --hard ca9bbd71d547a05604e8c2bddda66cdba5abe0c4 && \
+RUN git reset --hard v3.3.0 && \
     ./autogen.sh && \
     ./configure \
       --disable-static \
@@ -99,6 +100,7 @@ RUN curl -L http://festvox.org/packed/festival/2.4/festlex_CMU.tar.gz | \
 ENV ESTDIR /usr/local/src/speech_tools
 ENV FESTVOXDIR /usr/local/src/festvox
 ENV SPTKDIR /usr/local
+ENV FESTIVALDIR /usr/local/src/festival
 
 # Build and install SPTK
 WORKDIR /usr/local/src/SPTK-3.6
@@ -118,3 +120,11 @@ RUN ./configure && make
 
 WORKDIR /usr/local/src
 RUN rm -fr protobuf re2 $OPENFST pynini-0.9 $THRAX sparrowhawk SPTK-3.6
+
+# Add language-resources for generally building a new voice
+RUN a=b
+RUN git clone https://github.com/googlei18n/language-resources.git
+WORKDIR /usr/local/src/language-resources
+
+COPY ./language-resources-entrypoint.sh /
+# ENTRYPOINT ["/language-resources-entrypoint.sh"]
