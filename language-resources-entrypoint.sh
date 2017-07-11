@@ -6,8 +6,8 @@ if [ "$1" == "build_voice" ] && [ "$#" -eq 4 ]; then
   LANGUAGE=$3
   VOICE_TAR=$4
 
-  WAV_DIR=/tmp/wav
-  VOICE_DIR=/tmp/built_voice
+  WAV_DIR=/mnt/data/wav
+  VOICE_DIR=/mnt/data/built_voice
 
   git config --global user.email "you@example.com"
   git config --global user.name "Your Name"
@@ -17,9 +17,9 @@ if [ "$1" == "build_voice" ] && [ "$#" -eq 4 ]; then
   # Temporary operation to filter in only lines that we have .wav files.
   echo "Filter in only lines that we have .wav files..."
   for i in $(ls ${WAV_DIR}) ; do
-    grep "$(echo $i | sed 's/.wav//g')" si/festvox/txt.done.data >> /tmp/text
+    grep "$(echo $i | sed 's/.wav//g')" si/festvox/txt.done.data >> /mnt/data/text
   done
-  cp /tmp/text si/festvox/txt.done.data
+  cp /mnt/data/text si/festvox/txt.done.data
   # end
 
   echo "Add -x to better debugging on all scripts..."
@@ -35,7 +35,7 @@ elif [ "$1" == "run_voice" ] && [ "$#" -eq 5 ]; then
   INPUT_TEXT=$4
   OUTPUT_WAV=$5
 
-  EXTRACTED_VOICE=/tmp/voice/
+  EXTRACTED_VOICE=/mnt/data/voice/
 
   mkdir -p ${EXTRACTED_VOICE} && tar xzvf ${INPUT_MODEL} -C ${EXTRACTED_VOICE}
 
@@ -53,8 +53,8 @@ elif [ "$1" == "build_generic_voice" ] && [ "$#" -eq 7 ]; then
   TEXT_LINE=$6
   VOICE_TAR=$7
 
-  WAV_DIR=/tmp/wav
-  VOICE_DIR=/tmp/built_voice
+  WAV_DIR=/mnt/data/wav
+  VOICE_DIR=/mnt/data/built_voice
 
   git config --global user.email "you@example.com"
   git config --global user.name "Your Name"
@@ -73,9 +73,9 @@ elif [ "$1" == "build_generic_voice" ] && [ "$#" -eq 7 ]; then
   # Temporary operation to filter in only lines that we have .wav files.
   echo "Filter in only lines that we have .wav files..."
   for i in $(ls ${WAV_DIR}) ; do
-    grep "$(echo $i | sed 's/.wav//g')" ${LANGUAGE}/festvox/txt.done.data >> /tmp/text
+    grep "$(echo $i | sed 's/.wav//g')" ${LANGUAGE}/festvox/txt.done.data >> /mnt/data/text
   done
-  cp /tmp/text ${LANGUAGE}/festvox/txt.done.data
+  cp /mnt/data/text ${LANGUAGE}/festvox/txt.done.data
   # end
 
   echo "Add -x to better debugging on all scripts..."

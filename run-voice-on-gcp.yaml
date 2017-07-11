@@ -2,7 +2,7 @@ name: festival_sinhala
 description: Build sinhala voice
 inputParameters:
 - name: INPUT_VOICE
-  defaultValue: gs://a-test-data-flow/smoke-test/sinhala-built-voice-small.tar.gz
+  defaultValue: gs://nemo-pipeline/smoke-test/sinhala-built-voice-small.tar.gz
   localCopy:
     disk: datadisk
     path: built_voice.tar.gz
@@ -10,18 +10,13 @@ inputParameters:
   defaultValue: hello
 outputParameters:
 - name: OUTPUT_WAV
-  defaultValue: gs://a-test-data-flow/smoke-test/sinhala-hello.wav
+  defaultValue: gs://nemo-pipeline/smoke-test/sinhala-hello.wav
   localCopy:
     disk: datadisk
     path: result.wav
 resources:
-  minimumCpuCores: 16
-  minimumRamGb: 60
-  zones:
-  - us-central1-a
-  - us-central1-b
-  - us-central1-c
-  - us-central1-f
+  minimumCpuCores: 2
+  minimumRamGb: 16
   disks:
   - name: datadisk
     type: PERSISTENT_HDD
