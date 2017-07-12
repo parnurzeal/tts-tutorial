@@ -35,9 +35,12 @@ elif [ "$1" == "run_voice" ] && [ "$#" -eq 5 ]; then
   INPUT_TEXT=$4
   OUTPUT_WAV=$5
 
-  EXTRACTED_VOICE=/mnt/data/voice/
+  EXTRACTED_VOICE=/tmp/voice/
 
-  mkdir -p ${EXTRACTED_VOICE} && tar xzvf ${INPUT_MODEL} -C ${EXTRACTED_VOICE}
+  # Only for the 1st time, we untar to extract the compressed model.
+  if [ ! -d "${EXTRACTED_VOICE}" ]; then
+    mkdir -p ${EXTRACTED_VOICE} && tar xzvf ${INPUT_MODEL} -C ${EXTRACTED_VOICE}
+  fi
 
   cd ${EXTRACTED_VOICE}
   echo ${INPUT_TEXT} | ${FESTIVALDIR}/bin/text2wave \
