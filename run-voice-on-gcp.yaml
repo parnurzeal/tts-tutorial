@@ -8,6 +8,8 @@ inputParameters:
     path: built_voice.tar.gz
 - name: INPUT_TEXT
   defaultValue: hello
+- name: LANGUAGE
+  defaultValue: si
 outputParameters:
 - name: OUTPUT_WAV
   defaultValue: gs://nemo-pipeline/smoke-test/sinhala-hello.wav
@@ -24,4 +26,4 @@ resources:
     mountPoint: /mnt/data
 docker:
   imageName: parnurzeal/language-resources:ver2
-  cmd: "/language-resources-entrypoint.sh run_voice ${INPUT_VOICE} si \"${INPUT_TEXT}\" ${OUTPUT_WAV}"
+  cmd: "/language-resources-entrypoint.sh run_voice ${INPUT_VOICE} ${LANGUAGE} \"${INPUT_TEXT}\" ${OUTPUT_WAV}"
