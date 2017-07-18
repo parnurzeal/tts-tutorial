@@ -1,0 +1,43 @@
+name: festival_generic_voice
+description: Build generic voice
+inputParameters:
+- name: LANGUAGE
+  defaultValue: en-SG
+- name: INPUT_WAV
+  defaultValue: gs://nemo-pipeline/smoke-test/en-SG/en-sg-wav-small.tar.gz
+  localCopy:
+    disk: datadisk
+    path: wav.tar.gz
+- name: PHONOLOGY_JSON
+  defaultValue: gs://nemo-pipeline/smoke-test/en-SG/ipa_phonology.json
+  localCopy:
+    disk: datadisk
+    path: ipa_phonology.json
+- name: LEXICON_SCM
+  defaultValue: gs://nemo-pipeline/smoke-test/en-SG/lexicon.scm
+  localCopy:
+    disk: datadisk
+    path: lexicon.scm
+- name: TEXT_LINE
+  defaultValue: gs://nemo-pipeline/smoke-test/en-SG/txt.done.data
+  localCopy:
+    disk: datadisk
+    path: txt.done.data
+outputParameters:
+- name: OUTPUT_VOICE
+  defaultValue: gs://nemo-pipeline/smoke-test/en-SG/en-sg-built-voice-small.tar.gz
+  localCopy:
+    disk: datadisk
+    path: built_voice.tar.gz
+resources:
+  minimumCpuCores: 16
+  minimumRamGb: 64
+  bootDiskSizeGb: 100
+  disks:
+  - name: datadisk
+    type: PERSISTENT_HDD
+    sizeGb: 500
+    mountPoint: /mnt/data
+docker:
+  imageName: parnurzeal/language-resources:ver2
+  cmd: "/language-resources-entrypoint.sh build_generic_optimized_voice ${LANGUAGE} ${INPUT_WAV} ${PHONOLOGY_JSON} ${LEXICON_SCM} ${TEXT_LINE} ${OUTPUT_VOICE}"

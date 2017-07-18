@@ -19,6 +19,7 @@ outputParameters:
 resources:
   minimumCpuCores: 2
   minimumRamGb: 16
+  bootDiskSizeGb: 100
   disks:
   - name: datadisk
     type: PERSISTENT_HDD
