@@ -1,0 +1,6 @@
+#!/bin/sh
+
+PARALLEL=parallel
+
+./bin/do_build $PARALLEL build_prompts
+./bin/do_build label

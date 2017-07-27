@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y \
       pkg-config \
       python \
       python-dev \
+      python-pip \
       python-setuptools \
       unzip \
       vim \
@@ -122,19 +123,15 @@ WORKDIR /usr/local/src
 RUN rm -fr protobuf re2 $OPENFST pynini-0.9 $THRAX sparrowhawk SPTK-3.6
 
 # Add language-resources for generally building a new voice
-RUN a=b
 RUN git clone https://github.com/googlei18n/language-resources.git
 WORKDIR /usr/local/src/language-resources
 COPY ./language-resources-entrypoint.sh /
-
-# Install pip to install other stuffs like (flask)
-# TODO: move to top installation
-RUN apt-get update && apt-get install -y \
-      python-pip \
-    && rm -rf /var/lib/apt/lists/*
 
 RUN pip install flask gcloud
 
 COPY ./api_server.py /
 EXPOSE 8080
 # ENTRYPOINT ["/language-resources-entrypoint.sh"]
+
+COPY ./build_cg_voice_only_feature_extraction /
+
