@@ -26,5 +26,5 @@ resources:
     sizeGb: 100
     mountPoint: /mnt/data
 docker:
-  imageName: parnurzeal/language-resources:ver2
+  imageName: parnurzeal/language-resources:ver1
   cmd: "/language-resources-entrypoint.sh run_voice ${INPUT_VOICE} ${LANGUAGE} \"${INPUT_TEXT}\" ${OUTPUT_WAV}"

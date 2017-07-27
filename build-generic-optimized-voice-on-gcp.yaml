@@ -39,5 +39,5 @@ resources:
     sizeGb: 500
     mountPoint: /mnt/data
 docker:
-  imageName: parnurzeal/language-resources:ver2
+  imageName: parnurzeal/language-resources:ver1
   cmd: "/language-resources-entrypoint.sh build_generic_optimized_voice ${LANGUAGE} ${INPUT_WAV} ${PHONOLOGY_JSON} ${LEXICON_SCM} ${TEXT_LINE} ${OUTPUT_VOICE}"
